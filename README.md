@@ -7,9 +7,11 @@ A command-line tool can process input .txt files into generated .html files.
 2. Clone this repository to your local machine
     
    `git clone git@github.com:WangGithub0/ConvertTxtToHtml.git`
+   
    `cd ConvertTxtToHtml`
 
-3. Add executable permission to the `ConvertTxtToHtml.java` file
+4. Add executable permission to the `ConvertTxtToHtml.java` file
+   
    `chmod +x src/ConvertTxtToHtml.java`
 
 
@@ -20,6 +22,8 @@ To convert a `.txt` file to `.html`:
 `
 java src/ConvertTxtToHtml.java <path-to-txt-file>
 `
+
+
 
 To specify a different output directory:
 
@@ -41,6 +45,9 @@ By default, if no output directory is specified, the `.html` files will be saved
 * Converts single or multiple `.txt` files to `.html`.
 * Same directory structure in output directory.
 * Automatically parse title from  `.txt` file.
+
+## Examples
+`java src/ConvertTxtToHtml.java ./examples`
 
 
 ## Contributing
