@@ -22,7 +22,10 @@ public class ConvertTxtToHtml {
         }
 
         try {
-            // Create the output directory if it doesn't exist
+            // Delete the output directory if it exists
+            Files.deleteIfExists(Paths.get(outputPath));
+
+            // Create the output directory
             Files.createDirectories(Paths.get(outputPath));
 
             File inputFile = new File(inputPath);
