@@ -21,6 +21,13 @@ public class ConvertTxtToHtml {
             outputArg = args[2];
         }
 
+        // Check if the specified output is empty
+        if (outputArg.trim().isEmpty()) {
+            System.err.println("Output path must be specified after -o flag.");
+            printHelp();
+            return; // Exit the program
+        }
+
         // Check if the specified output is a directory
         File outputDir = new File(outputArg);
         if (outputDir.isDirectory()) {
