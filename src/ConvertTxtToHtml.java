@@ -55,6 +55,8 @@ public class ConvertTxtToHtml {
                     for (File file : files) {
                         processFile(file, outputPath);
                     }
+                }else {
+                    System.err.println("No .txt files found in the input directory.");
                 }
             } else if (inputFile.isFile() && inputPath.endsWith(".txt")) {
                 processFile(inputFile, outputPath);
