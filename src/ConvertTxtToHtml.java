@@ -18,7 +18,18 @@ public class ConvertTxtToHtml {
 		String outputPath="convertTxtToHtml";
 		
 		if (args.length >= 3 && (args[1].equals("--output") || args[1].equals("-o"))) {
-            outputPath = args[2];
+            outputArg = args[2];
+        }
+
+        // Check if the specified output is a directory
+        File outputDir = new File(outputArg);
+        if (outputDir.isDirectory()) {
+            outputPath = outputArg;
+        } else {
+            // If it's a file, throw an error
+            System.err.println("Output path must be a directory, not a file.");
+            printHelp();
+            return; // Exit the program
         }
 
         try {
