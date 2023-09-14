@@ -10,10 +10,6 @@ A command-line tool can process input .txt files into generated .html files.
    
    `cd ConvertTxtToHtml`
 
-4. Add executable permission to the `ConvertTxtToHtml.java` file
-   
-   `chmod +x src/ConvertTxtToHtml.java`
-
 
 ## Usage
 
