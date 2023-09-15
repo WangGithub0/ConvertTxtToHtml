@@ -4,20 +4,21 @@ import java.util.List;
 
 public class ConvertTxtToHtml {
 
-	public static void main(String[] args) {
-		// parse arguments
-		if(args.length==0||args[0].equals("-h")||args[0].equals("--help")) {
-			printHelp();
-			return;
-		}else if(args[0].equals("-v")||args[0].equals("--version")) {
-			printVersion();
-			return;
-		}
-		
-		String inputPath=args[0];
-		String outputPath="convertTxtToHtml";
-		
-		if (args.length >= 3 && (args[1].equals("--output") || args[1].equals("-o"))) {
+    public static void main(String[] args) {
+        // parse arguments
+        if (args.length == 0 || args[0].equals("-h") || args[0].equals("--help")) {
+            printHelp();
+            return;
+        } else if (args[0].equals("-v") || args[0].equals("--version")) {
+            printVersion();
+            return;
+        }
+
+        String inputPath = args[0];
+        String outputPath = "convertTxtToHtml";
+        String outputArg = null;
+
+        if (args.length >= 3 && (args[1].equals("--output") || args[1].equals("-o"))) {
             outputArg = args[2];
         }
 
@@ -55,7 +56,7 @@ public class ConvertTxtToHtml {
                     for (File file : files) {
                         processFile(file, outputPath);
                     }
-                }else {
+                } else {
                     System.err.println("No .txt files found in the input directory.");
                 }
             } else if (inputFile.isFile() && inputPath.endsWith(".txt")) {
@@ -68,10 +69,9 @@ public class ConvertTxtToHtml {
             e.printStackTrace();
         }
 
-	}
-	
-	
-	private static void processFile(File inputFile, String outputPath) throws IOException {
+    }
+
+    private static void processFile(File inputFile, String outputPath) throws IOException {
         // Read the input .txt file
         List<String> lines = Files.readAllLines(inputFile.toPath());
 
@@ -79,11 +79,11 @@ public class ConvertTxtToHtml {
         String title = fileName.substring(0, fileName.lastIndexOf('.'));
         // Parse title (optional)
 
-        Boolean hasTitle=false;
+        Boolean hasTitle = false;
         if (lines.size() >= 3 && lines.get(1).isEmpty() && lines.get(2).isEmpty()) {
             title = lines.get(0);
             lines = lines.subList(3, lines.size());
-            hasTitle=true;
+            hasTitle = true;
         }
 
         // Create the HTML content
@@ -94,7 +94,7 @@ public class ConvertTxtToHtml {
         htmlContent.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n");
         htmlContent.append("</head>\n<body>\n");
 
-        if(hasTitle){
+        if (hasTitle) {
             htmlContent.append("<h1>").append(title).append("</h1>\n");
         }
         for (String line : lines) {
@@ -115,17 +115,17 @@ public class ConvertTxtToHtml {
 
         System.out.println("Processed: " + inputFile.getName() + " -> " + outputFileName);
     }
-	
-	private static void printHelp() {
-		System.out.println("Usage: convertTxtToHtml [options] <input>");
-		System.out.println("Options:");
-		System.out.println("  --help, -h           Print this help message");
+
+    private static void printHelp() {
+        System.out.println("Usage: convertTxtToHtml [options] <input>");
+        System.out.println("Options:");
+        System.out.println("  --help, -h           Print this help message");
         System.out.println("  --version, -v        Print version information");
         System.out.println("  --output <dir>, -o   Specify the output directory (default: convertTxtToHtml)");
-	}
-	
-	private static void printVersion() {
-		System.out.println("convertTxtToHtml version 0.1");
-	}
-	
+    }
+
+    private static void printVersion() {
+        System.out.println("convertTxtToHtml version 0.1");
+    }
+
 }
