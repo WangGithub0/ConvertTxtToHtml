@@ -20,10 +20,12 @@ public class ConvertTxtToHtml {
 
         if (args.length >= 3 && (args[1].equals("--output") || args[1].equals("-o"))) {
             outputArg = args[2];
+        } else {
+            outputArg = "convertTxtToHtml";
         }
 
         // Check if the specified output is empty
-        if (outputArg.trim().isEmpty()) {
+        if (outputArg == null) {
             System.err.println("Output path must be specified after -o flag.");
             printHelp();
             return; // Exit the program
@@ -33,6 +35,7 @@ public class ConvertTxtToHtml {
         File outputDir = new File(outputArg);
         if (outputDir.isDirectory()) {
             outputPath = outputArg;
+            deleteContents(outputDir);
         } else {
             // If it's a file, throw an error
             System.err.println("Output path must be a directory, not a file.");
@@ -126,6 +129,18 @@ public class ConvertTxtToHtml {
 
     private static void printVersion() {
         System.out.println("convertTxtToHtml version 0.1");
+    }
+
+    private static void deleteContents(File directory) {
+        File[] allContents = directory.listFiles();
+        if (allContents != null) {
+            for (File file : allContents) {
+                if (file.isDirectory()) {
+                    deleteContents(file);
+                }
+                file.delete();
+            }
+        }
     }
 
 }

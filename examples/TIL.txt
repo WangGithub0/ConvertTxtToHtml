@@ -1,0 +1,26 @@
+TIL Post
+
+
+How to create GitHub Pages
+
+Create a Repository: First, create a new repository on GitHub. Make sure it's public.
+
+Choose Your Source: In your repository's settings, find the "GitHub Pages" section. 
+use a docs folder in your main branch, or a separate gh-pages branch.
+
+Create Content: Create the index.html
+
+Preview Locally: Test the site locally before pushing changes to GitHub.
+
+Push commit: 
+git commit -m 'add github pages '
+git push origin hg-pages
+
+
+That's it! GitHub Pages is an excellent way to share projects and ideas with the world. Start simple and gradually explore more advanced features as you get comfortable.
+
+
+
+
+
+
