@@ -1,7 +1,8 @@
 import java.io.*;
 import java.nio.file.*;
 import java.util.List;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class ConvertTxtToHtml {
@@ -100,13 +101,13 @@ public class ConvertTxtToHtml {
         htmlContent.append("</head>\n<body>\n");
 
         if (hasTitle) {
-            htmlContent.append("<h1>").append(title).append("</h1>\n");
+            htmlContent.append("<h1>").append(convertLinks(title)).append("</h1>\n");   // convert links in the title if any
         }
         for (String line : lines) {
             if (line.isEmpty()) {
                 htmlContent.append("<p></p>\n"); // Create a new paragraph
             } else {
-                htmlContent.append("<p>").append(line).append("</p>\n");
+                htmlContent.append("<p>").append(convertLinks(line)).append("</p>\n");    // convert links in the line if any
             }
         }
 
@@ -152,5 +153,53 @@ public class ConvertTxtToHtml {
         if (dotIndex > 0)
             newFilename = filename.substring(0, dotIndex);
         return newFilename;
+    }
+
+    // Convert any .md syntax links in string to .html syntax links
+    private static String convertLinks(String str) {
+        String newStr = str;
+        String linkText = "";
+        String linkUrl = "";
+        String mdLink = "";
+        String htmlLink = "";
+        Pattern linkTextPattern;
+        Matcher linkTextMatcher;
+        Pattern linkUrlPattern;
+        Matcher linkUrlMatcher;
+
+        // using regex to find links in .md files in the form of [linkText](linkUrl)
+        Pattern pattern = Pattern.compile("\\[(.*?)\\]\\((.*?)\\)");
+        Matcher matcher = pattern.matcher(newStr);
+
+        // loop through each md link and replace it with an html link
+        while (matcher.find()) {
+            mdLink = matcher.group();   // the md link
+
+            // using regex to extract the link text from the md link
+            linkTextPattern = Pattern.compile("\\[(.*?)\\]");
+            linkTextMatcher = linkTextPattern.matcher(mdLink);
+            if (linkTextMatcher.find()) {
+                linkText = linkTextMatcher.group(1);
+            } else {
+                System.err.println("Unexpected error in convertLinks(). Link text not found.");
+                return "";
+            }
+           
+            // using regex to extract the link url from the md link
+            linkUrlPattern = Pattern.compile("\\((.*?)\\)");
+            linkUrlMatcher = linkUrlPattern.matcher(mdLink);
+            if (linkUrlMatcher.find()) {
+                linkUrl = linkUrlMatcher.group(1);
+            } else {
+                System.err.println("Unexpected error in convertLinks(). Link url not found.");
+                return "";
+            }
+
+            // replace the md link with the html link
+            htmlLink = "<a href=\"" + linkUrl + "\">" + linkText + "</a>";
+            newStr = newStr.replace(mdLink, htmlLink);
+        }
+
+        return newStr;
     }
 }
