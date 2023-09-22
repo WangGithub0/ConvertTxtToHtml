@@ -1,3 +1,5 @@
 This is the first paragraph.
 
 This is the second paragraph.
+
+This [link](www.google.ca) should not be converted since this is a txt file.
