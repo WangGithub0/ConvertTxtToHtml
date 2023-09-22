@@ -13,7 +13,7 @@ A command-line tool can process input .txt files into generated .html files.
 
 ## Usage
 
-To convert a `.txt` file to `.html`:
+To convert a `.txt` / `.md` file to `.html`:
 
 `
 java src/ConvertTxtToHtml.java <path-to-txt-file>
@@ -38,9 +38,10 @@ By default, if no output directory is specified, the `.html` files will be saved
 
 ## Features
 
-* Converts single or multiple `.txt` files to `.html`.
+* Converts single or multiple `.txt` / `.md` files to `.html`.
 * Same directory structure in output directory.
-* Automatically parse title from  `.txt` file.
+* Automatically parse title from  `.txt` / `.md` file.
+* Converts .md syntax links to .html syntax links
 
 ## Examples
 `java src/ConvertTxtToHtml.java ./examples`
