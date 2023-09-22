@@ -58,7 +58,7 @@ public class ConvertTxtToHtml {
             if (inputFile.isDirectory()) {
                 // Process all .txt files and .md files in the input directory
                 File[] files = inputFile.listFiles((dir, name) -> (name.endsWith(".txt") || name.endsWith(".md")));
-                if (files != null) {
+                if (files.length > 0) {
                     for (File file : files) {
                         processFile(file, outputPath);
                     }
@@ -101,13 +101,17 @@ public class ConvertTxtToHtml {
         htmlContent.append("</head>\n<body>\n");
 
         if (hasTitle) {
-            htmlContent.append("<h1>").append(convertLinks(title)).append("</h1>\n");   // convert links in the title if any
+            if (fileName.endsWith(".md"))
+                title = convertLinks(title);    // convert links in MD file
+            htmlContent.append("<h1>").append(title).append("</h1>\n");
         }
         for (String line : lines) {
             if (line.isEmpty()) {
                 htmlContent.append("<p></p>\n"); // Create a new paragraph
             } else {
-                htmlContent.append("<p>").append(convertLinks(line)).append("</p>\n");    // convert links in the line if any
+                if (fileName.endsWith(".md"))
+                    line = convertLinks(line);   // convert links in MD file
+                htmlContent.append("<p>").append(line).append("</p>\n");
             }
         }
 
