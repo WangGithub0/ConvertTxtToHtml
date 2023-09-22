@@ -168,7 +168,7 @@ public class ConvertTxtToHtml {
         Matcher linkUrlMatcher;
 
         // using regex to find links in .md files in the form of [linkText](linkUrl)
-        Pattern pattern = Pattern.compile("\\[(.*?)\\]\\((.*?)\\)");
+        Pattern pattern = Pattern.compile("\\[([^\\[\\]]*?)\\]\\((.*?)\\)");
         Matcher matcher = pattern.matcher(newStr);
 
         // loop through each md link and replace it with an html link
