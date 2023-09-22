@@ -2,6 +2,8 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.List;
 
+
+
 public class ConvertTxtToHtml {
 
     public static void main(String[] args) {
@@ -53,16 +55,16 @@ public class ConvertTxtToHtml {
             File inputFile = new File(inputPath);
 
             if (inputFile.isDirectory()) {
-                // Process all .txt files in the input directory
-                File[] files = inputFile.listFiles((dir, name) -> name.endsWith(".txt"));
+                // Process all .txt files and .md files in the input directory
+                File[] files = inputFile.listFiles((dir, name) -> (name.endsWith(".txt") || name.endsWith(".md")));
                 if (files != null) {
                     for (File file : files) {
                         processFile(file, outputPath);
                     }
                 } else {
-                    System.err.println("No .txt files found in the input directory.");
+                    System.err.println("No .txt or .md files found in the input directory.");
                 }
-            } else if (inputFile.isFile() && inputPath.endsWith(".txt")) {
+            } else if (inputFile.isFile() && (inputPath.endsWith(".txt") || inputPath.endsWith(".md"))) {
                 processFile(inputFile, outputPath);
             } else {
                 System.err.println("Invalid input file or directory.");
@@ -111,7 +113,7 @@ public class ConvertTxtToHtml {
         htmlContent.append("</body>\n</html>");
 
         // Write the HTML content to the output file
-        String outputFileName = outputPath + File.separator + inputFile.getName().replace(".txt", ".html");
+        String outputFileName = outputPath + File.separator + getFilenameNoExt(inputFile.getName()) + ".html";
         try (PrintWriter writer = new PrintWriter(outputFileName)) {
             writer.println(htmlContent.toString());
         }
@@ -143,4 +145,12 @@ public class ConvertTxtToHtml {
         }
     }
 
+    // Returns the filename with the extension removed
+    private static String getFilenameNoExt(String filename) {
+        String newFilename = filename;
+        int dotIndex = filename.lastIndexOf('.');
+        if (dotIndex > 0)
+            newFilename = filename.substring(0, dotIndex);
+        return newFilename;
+    }
 }
