@@ -35,13 +35,15 @@ By default, if no output directory is specified, the `.html` files will be saved
 * `--version` or `-v`: Display the tool's version.
 * `path`: Specify the path to a `.txt` file or a directory containing multiple .txt files. If a directory is provided, `tml` will recursively process all `.txt` files within.
 * `--output` or `-o`: Specify a custom output directory. The tool will create the directory if it does not exist.
+* * `--lang` or `-l`: Specify the language for html, default: en-CA
 
 ## Features
 
 * Converts single or multiple `.txt` / `.md` files to `.html`.
 * Same directory structure in output directory.
 * Automatically parse title from  `.txt` / `.md` file.
-* Converts .md syntax links to .html syntax links
+* Converts .md syntax links to .html syntax links.
+* Converts .md `---` to `<hr>`.
 
 ## Examples
 `java src/ConvertTxtToHtml.java ./examples`
