@@ -3,6 +3,7 @@ import java.nio.file.*;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.*;
 
 
 public class ConvertTxtToHtml {
@@ -110,6 +111,7 @@ public class ConvertTxtToHtml {
                 htmlContent.append("<p></p>\n"); // Create a new paragraph
             } else {
                 if (fileName.endsWith(".md"))
+                    line = convertHorizontal(line); // convert horizontal in MD file
                     line = convertLinks(line);   // convert links in MD file
                 htmlContent.append("<p>").append(line).append("</p>\n");
             }
@@ -205,5 +207,11 @@ public class ConvertTxtToHtml {
         }
 
         return newStr;
+    }
+
+    // Convert horizontal in string to <hr>
+    private static String convertHorizontal(String line) {
+        String newLine = line.replaceAll("---", "<hr>");
+        return newLine;
     }
 }
