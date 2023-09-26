@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 public class ConvertTxtToHtml {
+
+    private static String defaultLang = "en-CA"; // Default language is Canadian English
 
     public static void main(String[] args) {
         // parse arguments
@@ -20,11 +21,36 @@ public class ConvertTxtToHtml {
         String inputPath = args[0];
         String outputPath = "convertTxtToHtml";
         String outputArg = null;
+        String lang = defaultLang;
 
+        // Check for the -o or --output flag and set the output directory accordingly
         if (args.length >= 3 && (args[1].equals("--output") || args[1].equals("-o"))) {
             outputArg = args[2];
         } else {
             outputArg = "convertTxtToHtml";
+        }
+
+        // Check for the -l or --lang flag and set the language accordingly
+        for (int i = 1; i < args.length; i++) {
+            if (args[i].equals("--output") || args[i].equals("-o")) {
+                if (i + 1 < args.length) {
+                    outputArg = args[i + 1];
+                    i++;
+                } else {
+                    System.err.println("Output path must be specified after -o flag.");
+                    printHelp();
+                    return; // Exit the program
+                }
+            } else if (args[i].equals("--lang") || args[i].equals("-l")) {
+                if (i + 1 < args.length) {
+                    lang = args[i + 1];
+                    i++;
+                } else {
+                    System.err.println("Language must be specified after -l flag.");
+                    printHelp();
+                    return; // Exit the program
+                }
+            }
         }
 
         // Check if the specified output is empty
@@ -60,13 +86,13 @@ public class ConvertTxtToHtml {
                 File[] files = inputFile.listFiles((dir, name) -> (name.endsWith(".txt") || name.endsWith(".md")));
                 if (files.length > 0) {
                     for (File file : files) {
-                        processFile(file, outputPath);
+                        processFile(file, outputPath, lang);
                     }
                 } else {
                     System.err.println("No .txt or .md files found in the input directory.");
                 }
             } else if (inputFile.isFile() && (inputPath.endsWith(".txt") || inputPath.endsWith(".md"))) {
-                processFile(inputFile, outputPath);
+                processFile(inputFile, outputPath, lang);
             } else {
                 System.err.println("Invalid input file or directory.");
                 printHelp();
@@ -77,7 +103,7 @@ public class ConvertTxtToHtml {
 
     }
 
-    private static void processFile(File inputFile, String outputPath) throws IOException {
+    private static void processFile(File inputFile, String outputPath, String lang) throws IOException {
         // Read the input .txt file
         List<String> lines = Files.readAllLines(inputFile.toPath());
 
@@ -94,7 +120,7 @@ public class ConvertTxtToHtml {
 
         // Create the HTML content
         StringBuilder htmlContent = new StringBuilder();
-        htmlContent.append("<!doctype html>\n<html lang=\"en\">\n<head>\n");
+        htmlContent.append("<!doctype html>\n<html lang=\"").append(lang).append("\">\n<head>\n");
         htmlContent.append("<meta charset=\"utf-8\">\n");
         htmlContent.append("<title>").append(title != null ? title : "Untitled").append("</title>\n");
         htmlContent.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n");
@@ -102,7 +128,7 @@ public class ConvertTxtToHtml {
 
         if (hasTitle) {
             if (fileName.endsWith(".md"))
-                title = convertLinks(title);    // convert links in MD file
+                title = convertLinks(title); // convert links in MD file
             htmlContent.append("<h1>").append(title).append("</h1>\n");
         }
         for (String line : lines) {
@@ -110,7 +136,7 @@ public class ConvertTxtToHtml {
                 htmlContent.append("<p></p>\n"); // Create a new paragraph
             } else {
                 if (fileName.endsWith(".md"))
-                    line = convertLinks(line);   // convert links in MD file
+                    line = convertLinks(line); // convert links in MD file
                 htmlContent.append("<p>").append(line).append("</p>\n");
             }
         }
@@ -132,6 +158,7 @@ public class ConvertTxtToHtml {
         System.out.println("  --help, -h           Print this help message");
         System.out.println("  --version, -v        Print version information");
         System.out.println("  --output <dir>, -o   Specify the output directory (default: convertTxtToHtml)");
+        System.out.println("  --lang, -l           Specify the language (default: en-CA)");
     }
 
     private static void printVersion() {
@@ -177,7 +204,7 @@ public class ConvertTxtToHtml {
 
         // loop through each md link and replace it with an html link
         while (matcher.find()) {
-            mdLink = matcher.group();   // the md link
+            mdLink = matcher.group(); // the md link
 
             // using regex to extract the link text from the md link
             linkTextPattern = Pattern.compile("\\[(.*?)\\]");
@@ -188,7 +215,7 @@ public class ConvertTxtToHtml {
                 System.err.println("Unexpected error in convertLinks(). Link text not found.");
                 return "";
             }
-           
+
             // using regex to extract the link url from the md link
             linkUrlPattern = Pattern.compile("\\((.*?)\\)");
             linkUrlMatcher = linkUrlPattern.matcher(mdLink);
