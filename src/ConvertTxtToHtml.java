@@ -20,15 +20,8 @@ public class ConvertTxtToHtml {
 
         String inputPath = args[0];
         String outputPath = "convertTxtToHtml";
-        String outputArg = null;
+        String outputArg = "convertTxtToHtml";
         String lang = defaultLang;
-
-        // Check for the -o or --output flag and set the output directory accordingly
-        if (args.length >= 3 && (args[1].equals("--output") || args[1].equals("-o"))) {
-            outputArg = args[2];
-        } else {
-            outputArg = "convertTxtToHtml";
-        }
 
         // Check for the -l or --lang flag and set the language accordingly
         for (int i = 1; i < args.length; i++) {
@@ -51,13 +44,6 @@ public class ConvertTxtToHtml {
                     return; // Exit the program
                 }
             }
-        }
-
-        // Check if the specified output is empty
-        if (outputArg == null) {
-            System.err.println("Output path must be specified after -o flag.");
-            printHelp();
-            return; // Exit the program
         }
 
         // Check if the specified output is a directory
