@@ -3,12 +3,8 @@ import toml
 
 def parse_command_line_args():
     parser = argparse.ArgumentParser(description="CLI Application with TOML Config File Support")
-    
-    # Add command-line arguments
     parser.add_argument("-c", "--config", help="Path to the TOML configuration file")
-
-    args = parser.parse_args()
-    return args
+    return parser.parse_args()
 
 def load_config_file(config_file_path):
     try:
@@ -23,31 +19,24 @@ def load_config_file(config_file_path):
         exit(1)
 
 def main():
-    # Parse command-line arguments
     args = parse_command_line_args()
+    config_data = load_config_file(args.config) if args.config else {}
 
-    # If a config file is provided, load and use it
-    if args.config:
-        config_data = load_config_file(args.config)
-    else:
-        # Default values if config file not provided
-        config_data = {
-            "output": "./build",
-            "stylesheet": "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css",
-            "lang": "en",  # Default language
-        }
+    default_config = {
+        "output": "./build",
+        "stylesheet": "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css",
+        "lang": "en",
+    }
 
-    # Access config values
-    output_dir = config_data.get("output")
-    stylesheet_url = config_data.get("stylesheet")
-    lang = config_data.get("lang")
+    config = {**default_config, **config_data}
 
-    # Example: Using the config values in your application
+    output_dir = config["output"]
+    stylesheet_url = config["stylesheet"]
+    lang = config["lang"]
+
     print(f"Output Directory: {output_dir}")
     print(f"Stylesheet URL: {stylesheet_url}")
     print(f"Language: {lang}")
-
-    # Your code here: Use the config values in your application
 
 if __name__ == "__main__":
     main()
