@@ -10,3 +10,15 @@ def parse_command_line_args():
     args = parser.parse_args()
     return args
 
+def load_config_file(config_file_path):
+    try:
+        with open(config_file_path, "r") as file:
+            config_data = toml.load(file)
+        return config_data
+    except FileNotFoundError:
+        print(f"Config file '{config_file_path}' not found.")
+        exit(1)
+    except toml.TomlDecodeError:
+        print(f"Error parsing TOML in '{config_file_path}'. Make sure it's valid TOML.")
+        exit(1)
+
