@@ -3,13 +3,11 @@ import java.nio.file.*;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.regex.*;
 
 
-public class ConvertTxtToHtml {
-
-    private static String defaultLang = "en-CA"; // Default language is Canadian English
-
+public class ConvertTxtMdToHtml {
+    private static String DEFAULT_LANG = "en-CA"; // Default language is Canadian English
+    private static String OUTPUT ="convertTxtMdToHtml";
     public static void main(String[] args) {
         // parse arguments
         if (args.length == 0 || args[0].equals("-h") || args[0].equals("--help")) {
@@ -21,9 +19,9 @@ public class ConvertTxtToHtml {
         }
 
         String inputPath = args[0];
-        String outputPath = "convertTxtToHtml";
-        String outputArg = "convertTxtToHtml";
-        String lang = defaultLang;
+        String outputPath = OUTPUT;
+        String outputArg = OUTPUT;
+        String lang = DEFAULT_LANG;
 
         // Check for the -l or --lang flag and set the language accordingly
         for (int i = 1; i < args.length; i++) {

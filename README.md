@@ -1,4 +1,4 @@
-# ConvertTxtToHtml
+# ConvertTxtMdToHtml
 A command-line tool can process input .txt files into generated .html files.
 
 ## Installation
@@ -6,9 +6,9 @@ A command-line tool can process input .txt files into generated .html files.
    
 2. Clone this repository to your local machine
     
-   `git clone git@github.com:WangGithub0/ConvertTxtToHtml.git`
+   `git clone git@github.com:WangGithub0/ConvertTxtMdToHtml.git`
    
-   `cd ConvertTxtToHtml`
+   `cd ConvertTxtMdToHtml`
 
 
 ## Usage
@@ -16,7 +16,7 @@ A command-line tool can process input .txt files into generated .html files.
 To convert a `.txt` / `.md` file to `.html`:
 
 `
-java src/ConvertTxtToHtml.java <path-to-txt-file>
+java src/ConvertTxtMdToHtml.java <path-to-txt-file>
 `
 
 
@@ -24,10 +24,10 @@ java src/ConvertTxtToHtml.java <path-to-txt-file>
 To specify a different output directory:
 
 `
-java src/ConvertTxtToHtml.java <path-to-txt-file> --output <path-to-output-directory>
+java src/ConvertTxtMdToHtml.java <path-to-txt-file> --output <path-to-output-directory>
 `
 
-By default, if no output directory is specified, the `.html` files will be saved inside the `ConvertTxtToHtml` directory.
+By default, if no output directory is specified, the `.html` files will be saved inside the `ConvertTxtMdToHtml` directory.
 
 ## Command Options:
 
@@ -46,7 +46,7 @@ By default, if no output directory is specified, the `.html` files will be saved
 * Converts .md `---` to `<hr>`.
 
 ## Examples
-`java src/ConvertTxtToHtml.java ./examples`
+`java src/ConvertTxtMdToHtml.java ./examples`
 
 
 ## Contributing
