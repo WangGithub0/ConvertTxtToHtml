@@ -3,12 +3,10 @@ import java.nio.file.*;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.regex.*;
-
 
 public class ConvertTxtToHtml {
 
-    private static String defaultLang = "en-CA"; // Default language is Canadian English
+    private static String defaultLang = "en-CA"; 
 
     public static void main(String[] args) {
         // parse arguments
@@ -88,7 +86,6 @@ public class ConvertTxtToHtml {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private static void processFile(File inputFile, String outputPath, String lang) throws IOException {
@@ -125,7 +122,7 @@ public class ConvertTxtToHtml {
             } else {
                 if (fileName.endsWith(".md"))
                     line = convertHorizontal(line); // convert horizontal in MD file
-                    line = convertLinks(line);   // convert links in MD file
+                line = convertLinks(line);   // convert links in MD file
                 htmlContent.append("<p>").append(line).append("</p>\n");
             }
         }
