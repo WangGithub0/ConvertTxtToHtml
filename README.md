@@ -27,6 +27,12 @@ To specify a different output directory:
 java src/ConvertTxtMdToHtml.java <path-to-txt-file> --output <path-to-output-directory>
 `
 
+To specify a configuration file:
+
+`
+java src/ConvertTxtMdToHtml.java --config <path-to-config-file>
+`
+
 By default, if no output directory is specified, the `.html` files will be saved inside the `ConvertTxtMdToHtml` directory.
 
 ## Command Options:
