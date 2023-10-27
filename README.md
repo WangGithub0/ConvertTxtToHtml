@@ -1,5 +1,5 @@
 # ConvertTxtMdToHtml
-A command-line tool can process input .txt files into generated .html files.
+A command-line tool can process input .txt or .md files into generated .html files.
 
 ## Installation
 1. Download and Install Java Development Kit according to the Oracle [JDK Installation Guide](https://docs.oracle.com/en/java/javase/20/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A).
@@ -44,6 +44,7 @@ By default, if no output directory is specified, the `.html` files will be saved
 * Automatically parse title from  `.txt` / `.md` file.
 * Converts .md syntax links to .html syntax links.
 * Converts .md `---` to `<hr>`.
+* Parse code block and can show line number by adding "showLineNumber" after first triple backticks 
 
 ## Examples
 `java src/ConvertTxtMdToHtml.java ./examples`

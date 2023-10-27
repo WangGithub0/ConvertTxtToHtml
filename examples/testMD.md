@@ -13,6 +13,12 @@ Once I was familiar with how to run the program, I tried to run some edge cases 
 When I found a bug, I went to the Issues tab of their GitHub project and clicked New issue.
 
 I gave the issue a title and short description as well as a screenshot and submitted the issue.
+
+```showLineNumber
+const message = 'Hello, world!';
+console.log(message);
+```
+
 ---
 Have you heard about [Hacktoberfest](https://hacktoberfest.com/)?
 

@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 public class ConvertTxtMdToHtml {
     private static String DEFAULT_LANG = "en-CA"; // Default language is Canadian English
-    private static String OUTPUT ="convertTxtMdToHtml";
+    private static String OUTPUT = "convertTxtMdToHtml";
+
     public static void main(String[] args) {
         // parse arguments
         if (args.length == 0 || args[0].equals("-h") || args[0].equals("--help")) {
@@ -117,13 +117,34 @@ public class ConvertTxtMdToHtml {
                 title = convertLinks(title); // convert links in MD file
             htmlContent.append("<h1>").append(title).append("</h1>\n");
         }
+
+        boolean isInsideCodeBlock = false;
+
         for (String line : lines) {
-            if (line.isEmpty()) {
+            if (isInsideCodeBlock) {
+                // If inside a code block, just add the line as-is
+                if (line.trim().equals("```")) {
+                    isInsideCodeBlock = false; // Exit the code block
+                    htmlContent.append("</pre>\n");
+                } else {
+                    htmlContent.append("<code>").append(line).append("</code>\n");
+                }
+            } else if (line.trim().equals("```")||line.trim().equals("```showLineNumber")) {
+                // Start of a code block
+                if( line.trim().equals("```showLineNumber")){
+                    htmlContent.append(
+                        "<style>\npre {\ncounter-reset: line;\nbackground-color: #f4f4f4;\n}\ncode::before {\ncontent: counter(line);\ncounter-increment: line;\npadding-right: 10px;\ndisplay: inline-block;\ntext-align: right;\n</style>\n<pre>");
+                }else{
+                    htmlContent.append(
+                        "<style>\npre {\ncounter-reset: line;\nbackground-color: #f4f4f4;\n}\n</style>\n<pre>");
+                }
+                isInsideCodeBlock = true;
+            } else if (line.isEmpty()) {
                 htmlContent.append("<p></p>\n"); // Create a new paragraph
             } else {
                 if (fileName.endsWith(".md"))
                     line = convertHorizontal(line); // convert horizontal in MD file
-                    line = convertLinks(line);   // convert links in MD file
+                line = convertLinks(line); // convert links in MD file
                 htmlContent.append("<p>").append(line).append("</p>\n");
             }
         }
