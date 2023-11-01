@@ -1,0 +1,46 @@
+{
+  // (Optional) paths to be appended to classpath. Used to find jar files containing custom rule definitions. Can be absolute or relative to workspace.
+  "javaPMD.additionalClassPaths": [],
+
+  // Size of buffer used to collect PMD command output (MB), may need to be increased for very large projects
+  "javaPMD.commandBufferSize": "64",
+
+  // Creates a cache file for PMD to run faster. Will create a .pmdCache file in your workspace
+  "javaPMD.enableCache": false,
+
+  // (Optional) Path to JRE (Folder that contains which contains `bin/java`)
+  "javaPMD.jrePath": "",
+
+  // Debounce interval to wait before running pmd after document change.  Only applicable if `runOnFileChange == true`
+  "javaPMD.onFileChangeDebounce": 3000,
+
+  // (Optional) Path to where PMD was installed
+  "javaPMD.pmdBinPath": "",
+
+  // Determines at what priority level 'errors' will be added. Anything less will be a warning or hint
+  "javaPMD.priorityErrorThreshold": 1,
+
+  // Determines at what priority level 'warnings' will be added. Anything less will be a hint
+  "javaPMD.priorityWarnThreshold": 3,
+
+  // (Optional) Paths to rulesets' xml files.
+  "javaPMD.rulesets": [quickstart.xml],
+
+  // Will run static analysis every time a file is changed (with a 500ms debounce delay)
+  "javaPMD.runOnFileChange": false,
+
+  // Will run static analysis every time a file is opened
+  "javaPMD.runOnFileOpen": false,
+
+  // Will run static analysis every time a file is saved
+  "javaPMD.runOnFileSave": true,
+
+  // Show errors in output window
+  "javaPMD.showErrors": true,
+
+  // Show showStdErr in output window
+  "javaPMD.showStdErr": true,
+
+  // Show showStdOut in output window
+  "javaPMD.showStdOut": false
+}
