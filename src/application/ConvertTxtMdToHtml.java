@@ -96,8 +96,7 @@ public final class ConvertTxtMdToHtml {
     }
   }
 
-  private static void processFile(File inputFile, String outputPath, String lang)
-      throws IOException {
+  public static void processFile(File inputFile, String outputPath, String lang) throws IOException {
     // Read the input .txt file
     List<String> lines = Files.readAllLines(inputFile.toPath());
 
