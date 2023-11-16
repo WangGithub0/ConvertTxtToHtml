@@ -45,8 +45,9 @@ Also provide vscode setting file in `.vscode` folder
 
 
 ## Run testing
-1. Add JUnit to the classpath, change $GITHUB_WORKSPACE to the project directory :
-   `export CLASSPATH=$CLASSPATH:$JUNIT_HOME/junit4.10/junit-4.10.jar`
+1. Add JUnit to the classpath, change $PRO_DIR to the project directory :
+   `export CLASSPATH=$CLASSPATH:$PRO_DIR/junit4.10/junit-4.10.jar`
+   
    like on Github Actions Workflow, I use: `export CLASSPATH=$CLASSPATH:$GITHUB_WORKSPACE/junit4.10/junit-4.10.jar`
 3. Move to src directory:
    `cd src`
