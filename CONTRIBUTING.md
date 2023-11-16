@@ -45,13 +45,14 @@ Also provide vscode setting file in `.vscode` folder
 
 
 ## Run testing
-1. Add JUnit to the classpath:
-   `export CLASSPATH=$CLASSPATH:$JUNIT_HOME/junit.jar`
-2. Move to src directory:
+1. Add JUnit to the classpath, change $GITHUB_WORKSPACE to the project directory :
+   `export CLASSPATH=$CLASSPATH:$JUNIT_HOME/junit4.10/junit-4.10.jar`
+   like on Github Actions Workflow, I use: `export CLASSPATH=$CLASSPATH:$GITHUB_WORKSPACE/junit4.10/junit-4.10.jar`
+3. Move to src directory:
    `cd src`
-3. Compile java file:
+4. Compile java file:
    `javac junit/ConvertTxtMdToHtmlTest.java application/ConvertTxtMdToHtml.java`
-4. Run the test:
+5. Run the test:
    `java org.junit.runner.JUnitCore junit.ConvertTxtMdToHtmlTest`
 
 
