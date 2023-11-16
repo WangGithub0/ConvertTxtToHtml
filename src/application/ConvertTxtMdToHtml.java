@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public final class ConvertTxtMdToHtml {
   // Private constructor to prevent instantiation
-  private ConvertTxtMdToHtml() {
+  public ConvertTxtMdToHtml() {
     // Hidden constructor
   }
 
