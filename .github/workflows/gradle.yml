@@ -30,6 +30,6 @@ jobs:
         distribution: 'temurin'
     - name: Run JUnit tests
       run: |
-        export CLASSPATH=$CLASSPATH:$GITHUB_WORKSPACE/junit/junit.jar
+        export CLASSPATH=$CLASSPATH:$GITHUB_WORKSPACE/junit4.10/junit-4.10.jar
         cd $GITHUB_WORKSPACE/src
         java org.junit.runner.JUnitCore junit.ConvertTxtMdToHtmlTest
