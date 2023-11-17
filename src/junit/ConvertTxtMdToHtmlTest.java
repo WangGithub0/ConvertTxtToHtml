@@ -25,6 +25,44 @@ public class ConvertTxtMdToHtmlTest {
     assertEquals("Version command is triggered", "convertTxtToHtml version 0.1",
         outContent.toString().trim());
   }
+
+  @Test
+  public void testHelpOptionShort() {
+    final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    final String expectedMessage = """
+            Usage: convertTxtToHtml [options] <input>
+            Options:
+              --help, -h           Print this help message
+              --version, -v        Print version information
+              --output <dir>, -o   Specify the output directory (default: convertTxtToHtml)
+              --lang, -l           Specify the language (default: en-CA)""";
+
+    System.setOut(new PrintStream(outContent));
+
+    ConvertTxtMdToHtml.main(new String[] {"-h"});
+
+    assertEquals(expectedMessage,
+            outContent.toString().trim().replaceAll("\r\n", "\n"));
+  }
+
+  @Test
+  public void testHelpOptionVerbose() {
+    final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    final String expectedMessage = """
+            Usage: convertTxtToHtml [options] <input>
+            Options:
+              --help, -h           Print this help message
+              --version, -v        Print version information
+              --output <dir>, -o   Specify the output directory (default: convertTxtToHtml)
+              --lang, -l           Specify the language (default: en-CA)""";
+
+    System.setOut(new PrintStream(outContent));
+
+    ConvertTxtMdToHtml.main(new String[] {"--help"});
+
+    assertEquals(expectedMessage,
+            outContent.toString().trim().replaceAll("\r\n", "\n"));
+  }
   
   @Test
   public void testConversionWithSimpleText() {
