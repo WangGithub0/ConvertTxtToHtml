@@ -5,6 +5,9 @@ A command-line tool can process input .txt or .md files into generated .html fil
 
 ## Usage
 
+Install [Maven](https://maven.apache.org/install.html)
+Install dependencies `mvn install`
+
 To convert a `.txt` / `.md` file to `.html`:
 
 `
@@ -39,7 +42,7 @@ By default, if no output directory is specified, the `.html` files will be saved
 * Parse code block and can show line number by adding "showLineNumber" after first triple backticks 
 
 ## Examples
-`java src//application/ConvertTxtMdToHtml.java ./examples`
+`java src/main/java/com/converttxtmdtohtml/ConvertTxtMdToHtml.java ./examples -o convertTxtToHtml`
 
 
 ## Contributing
