@@ -39,20 +39,21 @@ All types of contributions are encouraged and valued. See the Table of Contents 
 ## Source Code Formatter and Linter
 
 Java source should be putted into scr folder, and run the [Google Java Format](https://github.com/google/google-java-format) and [PMD](https://github.com/pmd/pmd) before commit it
-`java -jar google-java-format-1.18.1-all-deps.jar -r ./src/application/*`
-`./pmd-bin-7.0.0-rc4/bin/pmd check -R quickstart.xml -d src/application/ConvertTxtMdToHtml.java -f text --cache pmd.cache --report-file jdk-report.txt`
+
+
+*Google Java Format*
+`java -jar google-java-format-1.18.1-all-deps.jar -r ./src/main/java/com/converttxtmdtohtml/ConvertTxtMdToHtml.java`
+
+*PMD*
+`./pmd-bin-7.0.0-rc4/bin/pmd check -R quickstart.xml -d src/main/java/com/converttxtmdtohtml/ConvertTxtMdToHtml.java -f text --cache pmd.cache --report-file jdk-report.txt`
+Make sure there are no error in `jdk-report.txt` file.
+
+*.vscode*
 Also provide vscode setting file in `.vscode` folder
 
 
 ## Run testing
-1. Add JUnit to the classpath:
-   `export CLASSPATH=$CLASSPATH:$JUNIT_HOME/junit.jar`
-2. Move to src directory:
-   `cd src`
-3. Compile java file:
-   `javac junit/ConvertTxtMdToHtmlTest.java application/ConvertTxtMdToHtml.java`
-4. Run the test:
-   `java org.junit.runner.JUnitCore junit.ConvertTxtMdToHtmlTest`
+`mvn test`
 
 
 ## I Have a Question
