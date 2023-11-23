@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -24,6 +26,44 @@ public class ConvertTxtMdToHtmlTest {
 
     assertEquals("Version command is triggered", "convertTxtToHtml version 0.1",
         outContent.toString().trim());
+  }
+
+  @Test
+  public void testHelpOptionShort() {
+    final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    final String expectedMessage = """
+            Usage: convertTxtToHtml [options] <input>
+            Options:
+              --help, -h           Print this help message
+              --version, -v        Print version information
+              --output <dir>, -o   Specify the output directory (default: convertTxtToHtml)
+              --lang, -l           Specify the language (default: en-CA)""";
+
+    System.setOut(new PrintStream(outContent));
+
+    ConvertTxtMdToHtml.main(new String[] {"-h"});
+
+    assertEquals(expectedMessage,
+            outContent.toString().trim().replaceAll("\r\n", "\n"));
+  }
+
+  @Test
+  public void testHelpOptionVerbose() {
+    final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    final String expectedMessage = """
+            Usage: convertTxtToHtml [options] <input>
+            Options:
+              --help, -h           Print this help message
+              --version, -v        Print version information
+              --output <dir>, -o   Specify the output directory (default: convertTxtToHtml)
+              --lang, -l           Specify the language (default: en-CA)""";
+
+    System.setOut(new PrintStream(outContent));
+
+    ConvertTxtMdToHtml.main(new String[] {"--help"});
+
+    assertEquals(expectedMessage,
+            outContent.toString().trim().replaceAll("\r\n", "\n"));
   }
   
   @Test
@@ -69,5 +109,28 @@ public class ConvertTxtMdToHtmlTest {
       e.printStackTrace();
     }
   }
+
+  @Test
+    public void testConvertLinks() {
+        try {
+            // Create an instance of ConvertTxtMdToHtml
+            ConvertTxtMdToHtml converter = new ConvertTxtMdToHtml();
+
+            // Use reflection to access the private convertLinks method
+            Method convertLinksMethod = ConvertTxtMdToHtml.class.getDeclaredMethod("convertLinks", String.class);
+            convertLinksMethod.setAccessible(true);
+
+            // Test cases
+            String input1 = "This is a [link](https://example.com).";
+            String expectedOutput1 = "This is a <a href=\"https://example.com\">link</a>.";
+            assertEquals(expectedOutput1, convertLinksMethod.invoke(converter, input1));
+
+            // Add more test cases as needed
+
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+            fail("Exception thrown during test: " + e.getMessage());
+        }
+    }
 
 }
